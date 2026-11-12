@@ -47,14 +47,22 @@ public class DoublyLinkedList<T> : IEnumerable<T>
         var node = new DoublyLinkedListNode<T>(value);
         node.List = this;
 
-        node.Next = head;
-        head.Previous = node;
-        head = node;
-
         if (tail == null)
         {
             tail = node;
         }
+
+        if (head == null)
+        {
+            head = node;
+        }
+        else
+        {
+            node.Next = head;
+            head.Previous = node;
+            head = node;
+        }
+
         Count++;
         return node;
     }
@@ -75,6 +83,7 @@ public class DoublyLinkedList<T> : IEnumerable<T>
             node.Previous = tail;
             tail = node;
         }
+        
         Count++;
         return node;
     }
@@ -91,7 +100,9 @@ public class DoublyLinkedList<T> : IEnumerable<T>
         newNode.List = this;
 
         newNode.Next = node.Next;
-        node.Previous = newNode;
+        newNode.Previous =node;
+
+        node.Next.Previous = newNode;
         node.Next = newNode;
 
         Count++;
@@ -107,18 +118,15 @@ public class DoublyLinkedList<T> : IEnumerable<T>
             return AddFirst(value);
         }
 
-        var previous = head;
-        while (previous.Next != node)
-        {
-            previous = previous.Next;
-        }
-
+        var previous = node.Previous;
         var newNode = new DoublyLinkedListNode<T>(value);
         newNode.List = this;
 
         newNode.Next = node;
         newNode.Previous = previous;
+
         previous.Next = newNode;
+        previous.Previous = newNode;
 
         Count++;
         return newNode;
@@ -159,28 +167,22 @@ public class DoublyLinkedList<T> : IEnumerable<T>
     {
         ValidataNode(node);
 
-        DoublyLinkedListNode<T> previous = null;
-        DoublyLinkedListNode<T> current = head;
-
-        while (current != node)
-        {
-            previous = current;
-            current = current.Next;
-        }
-
-        if (previous == null)
+        if(node.Previous == null)
         {
             head = node.Next;
         }
         else
         {
-            previous.Next = node.Next;
-            node.Previous = previous.Next;
+            node.Previous.Next = node.Next;
         }
 
-        if (node == tail)
+        if(node.Next == null)
         {
-            tail = previous;
+            tail = node.Previous;
+        }
+        else
+        {
+            node.Next.Previous = node.Previous;
         }
 
         node.Next = null;
@@ -245,7 +247,7 @@ public class DoublyLinkedList<T> : IEnumerable<T>
         }
     }
 
-    public IEnumerator<T> Backward()
+    public IEnumerable<T> Backward()
     {
         DoublyLinkedListNode<T> current = tail;
         while (current != null)
