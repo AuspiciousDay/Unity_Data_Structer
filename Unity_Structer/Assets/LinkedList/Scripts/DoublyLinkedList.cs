@@ -51,7 +51,7 @@ public class DoublyLinkedList<T> : IEnumerable<T>
         {
             tail = node;
         }
-
+        
         if (head == null)
         {
             head = node;
