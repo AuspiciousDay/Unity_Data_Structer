@@ -128,8 +128,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 782054605}
-  - component: {fileID: 782054604}
   - component: {fileID: 782054606}
+  - component: {fileID: 782054607}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -137,19 +137,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &782054604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782054603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49c4a2dfdb857fc4592d4e4d53fe2074, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BinarySearchTreeTest
-  failCount: 0
 --- !u!4 &782054605
 Transform:
   m_ObjectHideFlags: 0
@@ -181,6 +168,22 @@ MonoBehaviour:
   spacingType: 0
   verticalSpacing: 2
   horizontalSpacing: 2
+--- !u!114 &782054607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782054603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49c4a2dfdb857fc4592d4e4d53fe2074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BinarySearchTreeTest
+  treeVisualizer: {fileID: 782054606}
+  nodeCount: 10
+  minKey: 1
+  maxKey: 1000
 --- !u!1 &939762651
 GameObject:
   m_ObjectHideFlags: 0
