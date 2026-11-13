@@ -118,15 +118,14 @@ public class DoublyLinkedList<T> : IEnumerable<T>
             return AddFirst(value);
         }
 
-        var previous = node.Previous;
         var newNode = new DoublyLinkedListNode<T>(value);
         newNode.List = this;
 
         newNode.Next = node;
-        newNode.Previous = previous;
+        newNode.Previous = node.Previous;
 
-        previous.Next = newNode;
-        previous.Previous = newNode;
+        node.Previous.Next = newNode;
+        node.Previous = newNode;
 
         Count++;
         return newNode;

@@ -72,10 +72,7 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
 
     public CircularDoublyLinkedListNode<T> AddFirst(T value)
     {
-        var node = new CircularDoublyLinkedListNode<T>(value);
-        node.List = this;
-
-        InsertBefore(head, node);
+        var node = AddLast(value);
         head = node;
         return node;
     }
@@ -92,11 +89,6 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
     public CircularDoublyLinkedListNode<T> AddAfter(CircularDoublyLinkedListNode<T> node, T value)
     {
         ValidataNode(node);
-
-        if (node == head.prev)
-        {
-            return AddLast(value);
-        }
         var newNode = new CircularDoublyLinkedListNode<T>(value);
         newNode.List = this;
 
@@ -210,12 +202,12 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
         var current = head;
         for(int i = 0; i < Count; i++)
         {
-            var previous = current.next;
+            var next = current.next;
             current.next = null;
             current.prev = null;
             current.List = null;
 
-            current = previous;
+            current = next;
         }
 
         head = null;
