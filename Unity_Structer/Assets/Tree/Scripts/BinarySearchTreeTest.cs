@@ -6,19 +6,44 @@ using UnityEngine;
 // 이진 탐색 트리 동작을 Console 창 로그로 확인한다
 public class BinarySearchTreeTest : MonoBehaviour
 {
+    public TreeVisualizer treeVisualizer;
+
+    public int nodeCount = 10;
+    public int minKey = 1;
+    public int maxKey = 1000;
+
     private int failCount;
 
-    void Start()
+    private void Start()
     {
-        Run(TestBinarySearchTree);
+        // Run(TestBinarySearchTree);
 
-        if (failCount == 0)
-            Debug.Log("=== 모든 검사 통과 ===");
-        else
-            Debug.LogError($"=== 실패 {failCount}건 ===");
+        // if (failCount == 0)
+        //     Debug.Log("=== 모든 검사 통과 ===");
+        // else
+        //     Debug.LogError($"=== 실패 {failCount}건 ===");
+        GenerateRandomTree();
     }
 
-    void TestBinarySearchTree()
+    [ContextMenu("GenerateRandomTree")]
+    public void GenerateRandomTree()
+    {
+        var tree = new BinarySearchTreeTest<int, string>();
+
+        for(int i = 0; i < nodeCount; i++)
+        {
+            int key= UnityEngine.Random.Range(minKey,maxKey);
+            if (!tree.ContainsKey(key))
+            {
+                string value = $"{key}";
+                tree.Add(key,value);
+            }
+        }
+
+        treeVisualizer.Visualize(tree.GetRoot());
+    }
+
+    private void TestBinarySearchTree()
     {
         Debug.Log("=== BinarySearchTree 테스트 시작 ===");
 
@@ -71,13 +96,13 @@ public class BinarySearchTreeTest : MonoBehaviour
     }
 
     // 순회 결과를 "키 키 키" 문자열로 만든다
-    string KeysOf(IEnumerable<KeyValuePair<int, string>> items)
+    private string KeysOf(IEnumerable<KeyValuePair<int, string>> items)
     {
         return string.Join(" ", items.Select(kvp => kvp.Key));
     }
 
     // 테스트가 예상 못 한 예외로 멈추면 실패로 집계하고 원인을 남긴다
-    void Run(Action test)
+    private void Run(Action test)
     {
         try
         {
@@ -90,7 +115,7 @@ public class BinarySearchTreeTest : MonoBehaviour
         }
     }
 
-    void Expect<T>(T actual, T expected, string label)
+    private void Expect<T>(T actual, T expected, string label)
     {
         if (EqualityComparer<T>.Default.Equals(actual, expected))
         {
@@ -103,7 +128,7 @@ public class BinarySearchTreeTest : MonoBehaviour
         }
     }
 
-    void ExpectThrows<TException>(Action action, string label) where TException : Exception
+    private void ExpectThrows<TException>(Action action, string label) where TException : Exception
     {
         try
         {

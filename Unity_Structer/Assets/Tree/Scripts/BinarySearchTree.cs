@@ -4,8 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BinarySearchTree<TKey, TValue> : IDictionary<TKey, TValue>
-    where TKey : IComparable<TKey>
+public class BinarySearchTreeTest<TKey, TValue> : BinarySearchTree<TKey, TValue>  where TKey : IComparable<TKey>
+{
+    public TreeNode<TKey, TValue> GetRoot()
+    {
+        return root;
+    }
+}
+
+public class BinarySearchTree<TKey, TValue> : IDictionary<TKey, TValue> where TKey : IComparable<TKey>
 {
     protected TreeNode<TKey, TValue> root;
 
@@ -136,20 +143,20 @@ public class BinarySearchTree<TKey, TValue> : IDictionary<TKey, TValue>
 
     public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
     {
-        if(array == null)
+        if (array == null)
         {
             throw new ArgumentNullException(nameof(array));
         }
-        if(arrayIndex < 0 || arrayIndex > array.Length)
+        if (arrayIndex < 0 || arrayIndex > array.Length)
         {
             throw new ArgumentOutOfRangeException(nameof(arrayIndex));
         }
-        if(array.Length - arrayIndex < Count)
+        if (array.Length - arrayIndex < Count)
         {
             throw new ArgumentException("배열 크기 부족");
         }
-        
-        foreach(var kvp in this)
+
+        foreach (var kvp in this)
         {
             array[arrayIndex++] = kvp;
         }
