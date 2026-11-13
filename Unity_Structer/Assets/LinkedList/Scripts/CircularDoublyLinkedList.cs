@@ -45,7 +45,7 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
     }
 
     private void InsertBefore(CircularDoublyLinkedListNode<T> target, CircularDoublyLinkedListNode<T> newNode)
-    {
+    {       
         if (head == null)
         {
             head = newNode;
@@ -54,6 +54,8 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
         }
         else
         {
+            ValidataNode(target);
+
             newNode.next = target;
             newNode.prev = target.prev;
 
@@ -105,8 +107,6 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
         {
             return AddFirst(value);
         }
-
-        var prev = node.prev;
         var newNode = new CircularDoublyLinkedListNode<T>(value);
         newNode.List = this;
 
@@ -126,7 +126,7 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
 
     public void RemoveLast()
     {
-        if (head.prev == null)
+        if (head == null)
         {
             throw new InvalidOperationException("리스트가 비어있습니다.");
         }
@@ -149,22 +149,19 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
     {
         ValidataNode(node);
 
-        if (node.prev == null)
+        if(Count == 1)
         {
-            head = node.next;
+            head = null;
         }
         else
         {
             node.prev.next = node.next;
-        }
-
-        if (node.next == null)
-        {
-            head.prev = node.prev;
-        }
-        else
-        {
             node.next.prev = node.prev;
+
+            if(node == head)
+            {
+                head = node.next;
+            }
         }
 
         node.next = null;
@@ -180,12 +177,16 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
         var current = head;
 
         if (current == null)
+        {
             return null;
+        }           
 
         do
         {
             if (comparer.Equals(current.Value, value))
+            {
                 return current;
+            }           
 
             current = current.next;
 
@@ -202,22 +203,17 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
     public void Clear()
     {
         var current = head;
-        while (current != null)
+        for(int i = 0; i < Count; i++)
         {
-            var next = current.next;
-
+            var previous = current.next;
             current.next = null;
-            if (current.prev != null)
-            {
-                current.prev = null;
-            }
+            current.prev = null;
             current.List = null;
 
-            current = next;
+            current = previous;
         }
 
         head = null;
-        head.prev = null;
         Count = 0;
     }
 
@@ -235,6 +231,11 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
 
     public IEnumerable<T> Backward()
     {
+        if(head == null)
+        {
+            yield break;
+        }
+
         CircularDoublyLinkedListNode<T> current = head.prev;
         while (current != null)
         {
