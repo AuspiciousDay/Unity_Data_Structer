@@ -45,7 +45,12 @@ public class CircularDoublyLinkedList<T> : IEnumerable<T>
     }
 
     private void InsertBefore(CircularDoublyLinkedListNode<T> target, CircularDoublyLinkedListNode<T> newNode)
-    {       
+    {
+        if(newNode == null)
+        {
+            throw new ArgumentNullException(nameof(newNode));
+        }
+
         if (head == null)
         {
             head = newNode;
