@@ -25,13 +25,21 @@ public class Stage : MonoBehaviour
     [Range(0f, 1f)]
     public float lakePercent = 0.1f;
 
-
     [ContextMenu("Reset Stage")]
     public void ResetStage()
     {
         map = new Map();
+
         map.Init(mapHeight, mapWidth);
+
         map.CreateIsland(erodePercent, erodeIterations, lakePercent);
+
+        bool success = map.CreatePlace(map.LandTiles);
+
+        if (success)
+        {
+            map.CreateRandomFeatures();
+        }
 
         CreateGrid();
     }
@@ -76,11 +84,16 @@ public class Stage : MonoBehaviour
         var tile = map.tiles[tileId];
         var tileGo = tileObjs[tileId];
         var ren = tileGo.GetComponent<SpriteRenderer>();
-        if(tile.autoTileId == 15)
+
+        if (tile.featureType.HasValue)
         {
-            islandSprites[tile.autoTileId] = RandomTiles[Random.Range(0,8)];
+            ren.sprite = islandSprites[(int)tile.featureType.Value];
         }
-        if (tile.autoTileId != (int)TileTypes.Empty)
+        else if (tile.autoTileId == (int)TileTypes.Grass && RandomTiles != null && RandomTiles.Length > 0)
+        {
+            ren.sprite = RandomTiles[Random.Range(0, RandomTiles.Length)];
+        }
+        else if (tile.autoTileId != (int)TileTypes.Empty)
         {
             ren.sprite = islandSprites[tile.autoTileId];
         }

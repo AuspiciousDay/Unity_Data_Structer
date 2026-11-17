@@ -14,6 +14,7 @@ public class Tile
     public Tile[] adjacents = new Tile[4];
 
     public int autoTileId;
+    public TileTypes? featureType;
 
     public void UpdateAutoTileId()
     {

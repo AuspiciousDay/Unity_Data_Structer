@@ -315,6 +315,12 @@ MonoBehaviour:
   - {fileID: 21300026, guid: 6dda2095192964815b349ac505a5e664, type: 3}
   - {fileID: 21300028, guid: 6dda2095192964815b349ac505a5e664, type: 3}
   - {fileID: 21300030, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300032, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300034, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300036, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300038, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300040, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300042, guid: 6dda2095192964815b349ac505a5e664, type: 3}
   erodePercent: 0.3
   erodeIterations: 2
   lakePercent: 0.1
