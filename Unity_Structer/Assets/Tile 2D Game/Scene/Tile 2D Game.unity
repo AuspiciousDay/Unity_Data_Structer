@@ -155,8 +155,8 @@ Camera:
   m_GameObject: {fileID: 252669535}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -181,8 +181,8 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 100
-  m_Depth: -1
+  orthographic size: 200
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 252669535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 160, y: -160, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 514684871}
   m_Layer: 0
   m_Name: Stage
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,43 +287,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stage
   tilePrefab: {fileID: 8488114375090207316, guid: 87a817b983e844a45aaeae7911b4f955, type: 3}
   tileObjs: []
-  RandomTiles:
-  - {fileID: 21300030, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300032, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300034, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300036, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300038, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300040, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300042, guid: 6dda2095192964815b349ac505a5e664, type: 3}
   mapWidth: 20
   mapHeight: 20
   tileSize: {x: 16, y: 16}
-  islandSprites:
-  - {fileID: 21300000, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300002, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300004, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300006, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300008, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300010, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300012, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300014, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300016, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300018, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300020, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300022, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300024, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300026, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300028, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300030, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300032, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300034, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300036, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300038, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300040, guid: 6dda2095192964815b349ac505a5e664, type: 3}
-  - {fileID: 21300042, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  islandSprites: []
   erodePercent: 0.3
   erodeIterations: 2
   lakePercent: 0.1
+  treePercent: 0.1
+  hillPercent: 0.1
+  moutainPercent: 0.1
+  townPercent: 0.1
+  monsterPercent: 0.1
+  firstTilePos: {x: 0, y: 0, z: 0}
+  playerPrefab: {fileID: 8856370322684863481, guid: 2d055036976491344aa4c89033f329b1, type: 3}
+  fowSprites: []
+  viewPoint: 5
 --- !u!4 &514684872
 Transform:
   m_ObjectHideFlags: 0

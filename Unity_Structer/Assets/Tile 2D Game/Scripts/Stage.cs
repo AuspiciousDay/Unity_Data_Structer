@@ -5,8 +5,6 @@ public class Stage : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject[] tileObjs;
 
-    public Sprite[] RandomTiles;
-
     public int mapWidth = 20;
     public int mapHeight = 20;
 
@@ -18,30 +16,76 @@ public class Stage : MonoBehaviour
 
     public Map Map => map;
 
-    [Range(0f, 1f)]
+    [Range(0f, 0.9f)]
     public float erodePercent = 0.3f;
-    public float erodeIterations = 2f;
+    public float erodeIterations = 2;
 
-    [Range(0f, 1f)]
+    [Range(0f, 0.9f)]
     public float lakePercent = 0.1f;
+
+    [Range(0f, 0.9f)]
+    public float treePercent = 0.1f;
+
+    [Range(0f, 0.9f)]
+    public float hillPercent = 0.1f;
+
+    [Range(0f, 0.9f)]
+    public float moutainPercent = 0.1f;
+
+    [Range(0f, 0.9f)]
+    public float townPercent = 0.1f;
+
+    [Range(0f, 0.9f)]
+    public float monsterPercent = 0.1f;
+
+    private void Awake()
+    {
+        ResetStage();
+    }
 
     [ContextMenu("Reset Stage")]
     public void ResetStage()
     {
-        map = new Map();
-
-        map.Init(mapHeight, mapWidth);
-
-        map.CreateIsland(erodePercent, erodeIterations, lakePercent);
-
-        bool success = map.CreatePlace(map.LandTiles);
-
-        if (success)
+        bool success = false;
+        int maxAttemp = 10;
+        for (int i = 0; i < maxAttemp && !success; i++)
         {
-            map.CreateRandomFeatures();
+            map = new Map();
+            map.Init(mapHeight, mapWidth);
+            success = map.CreateIsland(erodePercent, erodeIterations, lakePercent, treePercent, hillPercent, moutainPercent, townPercent, monsterPercent);
         }
 
+        if (!success)
+        {
+            Debug.LogError("맵 생성 실패");
+            map = null;
+            return;
+        }
         CreateGrid();
+        CreatePlayer();
+    }
+
+    public Vector3 firstTilePos;
+
+    public GameObject playerPrefab;
+
+    private Player player;
+
+    public void OnTileVisited(int tileId)
+    {
+        map.tiles[tileId].isVisited = true;
+    }
+
+    private void CreatePlayer()
+    {
+        if(player != null)
+        {
+            Destroy(player.gameObject);
+            player = null;
+        }
+
+        var newGo = Instantiate(playerPrefab);
+        player = newGo.GetComponent<Player>();
     }
 
     private void CreateGrid()
@@ -55,12 +99,11 @@ public class Stage : MonoBehaviour
         }
         tileObjs = new GameObject[mapWidth * mapHeight];
 
-        Vector3 pos = Vector3.zero;
+        Vector3 pos = firstTilePos;
         float startX = pos.x;
-
-        for (int i = 0; i < mapHeight; i++)
+        for (int i = 0; i < mapHeight; ++i)
         {
-            for (int j = 0; j < mapWidth; j++)
+            for (int j = 0; j < mapWidth; ++j)
             {
                 var tileId = i * mapWidth + j;
                 var tile = map.tiles[tileId];
@@ -84,22 +127,75 @@ public class Stage : MonoBehaviour
         var tile = map.tiles[tileId];
         var tileGo = tileObjs[tileId];
         var ren = tileGo.GetComponent<SpriteRenderer>();
-
-        if (tile.featureType.HasValue)
+        if (tile.autoTileId != (int)TileTypes.Empty)
         {
-            ren.sprite = islandSprites[(int)tile.featureType.Value];
-        }
-        else if (tile.autoTileId == (int)TileTypes.Grass && RandomTiles != null && RandomTiles.Length > 0)
-        {
-            ren.sprite = RandomTiles[Random.Range(0, RandomTiles.Length)];
-        }
-        else if (tile.autoTileId != (int)TileTypes.Empty)
-        {
-            ren.sprite = islandSprites[tile.autoTileId];
+            if (tile.isVisited)
+            {
+                ren.sprite = islandSprites[tile.autoTileId];
+            }
+            else
+            {
+                ren.sprite = fowSprites[tile.autoTileId];
+            }
         }
         else
         {
             ren.sprite = null;
         }
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            var tileId = ScreenPosTileId(Input.mousePosition, false);
+            Debug.Log($"Tile ID: {tileId}");
+
+            if (tileId > 0 && tileId < map.tiles.Length)
+            {
+                Debug.Log(tileObjs[tileId].name);
+                Debug.Log($"{tileObjs[tileId]} == {GetTilePos(tileId)}");
+            }
+        }
+    }
+
+    public int ScreenPosTileId(Vector3 screenPos, bool clamp = true)
+    {
+        Camera cam = Camera.main;
+        screenPos.z = Mathf.Abs(transform.position.z - cam.transform.position.z);
+        return WorldPosToTileId(Camera.main.ScreenToWorldPoint(screenPos), clamp);
+    }
+
+    public int WorldPosToTileId(Vector3 worldPos, bool clamp = true)
+    {
+        int x = Mathf.FloorToInt((worldPos.x - firstTilePos.x) / tileSize.x + 0.5f);
+        int y = Mathf.FloorToInt((firstTilePos.y - worldPos.y) / tileSize.y + 0.5f);
+
+        if (clamp)
+        {
+            x = Mathf.Clamp(x, 0, mapWidth - 1);
+            y = Mathf.Clamp(y, 0, mapHeight - 1);
+        }
+
+        return y * mapWidth + x;
+    }
+
+    public Vector3 GetTilePos(int y, int x)
+    {
+        return firstTilePos + new Vector3(x * tileSize.x, -y * tileSize.y);
+    }
+
+    public Vector3 GetTilePos(int tileId)
+    {
+        return GetTilePos(tileId / mapWidth, tileId % mapWidth);
+    }
+
+    public Sprite[] fowSprites;
+    public int viewPoint = 5;
+
+    public void ViewPoint(int viewPoint)
+    {
+        
     }
 }
