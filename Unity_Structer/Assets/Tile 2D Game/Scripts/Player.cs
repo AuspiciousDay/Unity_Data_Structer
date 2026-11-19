@@ -35,7 +35,8 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            var targetTileId = stage.ScreenPosTileId(Input.mousePosition, false);
+            var targetTileId = stage.ScreenPosTileId(Input.mousePosition);
+
             if (isMoving)
             {
                 StopAllCoroutines();

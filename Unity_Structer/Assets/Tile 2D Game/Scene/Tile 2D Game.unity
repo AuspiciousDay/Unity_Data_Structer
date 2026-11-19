@@ -290,7 +290,47 @@ MonoBehaviour:
   mapWidth: 20
   mapHeight: 20
   tileSize: {x: 16, y: 16}
-  islandSprites: []
+  islandSprites:
+  - {fileID: 21300000, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300002, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300004, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300006, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300008, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300010, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300012, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300014, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300016, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300018, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300020, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300022, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300024, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300026, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300028, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300030, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300032, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300034, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300036, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300038, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300040, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  - {fileID: 21300042, guid: 6dda2095192964815b349ac505a5e664, type: 3}
+  fowSprites:
+  - {fileID: 21300000, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300002, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300004, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300006, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300008, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300010, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300012, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300014, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300016, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300018, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300020, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300022, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300024, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300026, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300028, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  - {fileID: 21300030, guid: dfa5f63634ba24c06a7c899467e4f9f3, type: 3}
+  visitRadius: 1
   erodePercent: 0.3
   erodeIterations: 2
   lakePercent: 0.1
@@ -301,8 +341,6 @@ MonoBehaviour:
   monsterPercent: 0.1
   firstTilePos: {x: 0, y: 0, z: 0}
   playerPrefab: {fileID: 8856370322684863481, guid: 2d055036976491344aa4c89033f329b1, type: 3}
-  fowSprites: []
-  viewPoint: 5
 --- !u!4 &514684872
 Transform:
   m_ObjectHideFlags: 0
