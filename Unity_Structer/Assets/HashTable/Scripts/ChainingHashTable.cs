@@ -1,12 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem;
-using TMPro;
+
 
 // 충돌 해결 = 버킷별 LinkedList 체인
 public class ChainingHashTable<TKey, TValue> : IDictionary<TKey, TValue>
@@ -317,7 +312,7 @@ public class ChainingHashTable<TKey, TValue> : IDictionary<TKey, TValue>
             {
                 chain.Add((bucket.Key.ToString(), bucket.Value.ToString()));
             }
-            yield return new BucketView(i, BucketState.Occupied, buckets[i].ToString(), buckets[i].ToString(), chain);
+            yield return new BucketView(i, BucketState.Occupied, null, null, chain);
         }
     }
 
