@@ -263,7 +263,7 @@ public class ChainingHashTable<TKey, TValue> : IDictionary<TKey, TValue>
         var node = buckets[index]?.First;
         while (node != null)
         {
-            if (EqualityComparer<TValue>.Default.Equals(node.Value.Value, item.Value))
+            if (EqualityComparer<TValue>.Default.Equals(node.Value.Value, item.Value) && EqualityComparer<TKey>.Default.Equals(node.Value.Key, item.Key))
             {
                 buckets[index].Remove(node);
                 count--;
@@ -286,8 +286,8 @@ public class ChainingHashTable<TKey, TValue> : IDictionary<TKey, TValue>
         {
             if (EqualityComparer<TKey>.Default.Equals(node.Value.Key, key))
             {
-                value = node.Value.Value;
-                return true;   // node.Value = KeyValuePair, .Value = 값
+                value = node.Value.Value; // node.Value = KeyValuePair, .Value = 값
+                return true;
             }
             node = node.Next;
         }
@@ -308,9 +308,10 @@ public class ChainingHashTable<TKey, TValue> : IDictionary<TKey, TValue>
 
             // [빈칸 ⑥] 체인의 (Key, Value)를 문자열 튜플 리스트로 모아 Occupied로 돌려준다
             var chain = new List<(string, string)>();
-            foreach(var bucket in buckets[i])
+            foreach (var bucket in buckets[i])
             {
-                chain.Add((bucket.Key.ToString(), bucket.Value.ToString()));
+                // chain.Add((bucket.Key.ToString(), bucket.Value.ToString()));
+                chain.Add((Convert.ToString(bucket.Key), Convert.ToString(bucket.Value)));
             }
             yield return new BucketView(i, BucketState.Occupied, null, null, chain);
         }
